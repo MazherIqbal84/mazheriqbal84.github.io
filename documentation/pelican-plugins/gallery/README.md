@@ -43,21 +43,21 @@ The dictionary key is the name of the album and the lists contain the filenames.
 
 	<h2><a href="{{ SITEURL }}/pages/gallery.html#{{ article.album }}">{{ article.album }}</a></h2>
 	    <ul>
-		{% for image in article.galleryimages %}
+		{ for image in article.galleryimages }
 		<li><a class="{{ article.album }} cboxElement" href="{{ SITEURL }}/static/images/gallery/{{ article.album }}/{{ image }}"><img src="{{ SITEURL }}/static/images/gallery200x200/{{ article.album }}/{{ image }}"></a></li>
-		{% endfor %}
+		{ endfor }
 	    </ul>
 		
 ### gallery.html
 
-	{% for album, images in page.gallery.iteritems() %}
+	{ for album, images in page.gallery.iteritems() }
 	<h2><a name="{{ album }}">{{ album }}</a></h2>
 	<ul>
-	    {% for image in images %}
+	    { for image in images }
 	    <li><a class="{{ album }} cboxElement" href="{{ SITEURL }}/static/images/gallery/{{album}}/{{ image }}" title="{{ image }}"><img src="{{ SITEURL }}/static/images/gallery200x200/{{album}}/{{ image }}"></a></li>
-	    {% endfor %}
+	    { endfor }
 	</ul>
-	{% endfor %}
+	{ endfor }
 
 ### posts/foo.md
 

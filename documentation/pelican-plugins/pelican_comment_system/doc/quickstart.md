@@ -13,7 +13,7 @@ This form allows your visitors to easily write comments and send them to you via
 	```
 
 2. Modify your `article.html` template:
-	1. Add `{% import 'pcs/comments.html' as pcs with context %}` to the top
+	1. Add `{ import 'pcs/comments.html' as pcs with context }` to the top
 	2. Add `{{ pcs.comments_quickstart("emailuser", "example.com") }}` where you want your comments (e.g. below `{{ article.content }}`)  
 	"emailuser@example.com" will be the e-mail address used for the `mailto:` link [1]
 

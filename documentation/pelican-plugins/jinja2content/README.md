@@ -36,7 +36,7 @@ File `my-cool-article.md`
 
 My cool content.
 
-{% from 'img_desc.html' import img_desc %}
+{ from 'img_desc.html' import img_desc }
 {{ img_desc("/images/my-cool-image.png",
     "This is a cool tooltip",
     "This is a very cool image.") }}
@@ -44,14 +44,14 @@ My cool content.
 
 Where file `img_desc.html` contains:
 ```
-{% macro img_desc(src, title='', desc='') -%}
+{ macro img_desc(src, title='', desc='') }
 <div class="img-desc">
   <p><img src="{{ src }}" title="{{ title }}"></p>
-  {% if desc %}
+  { if desc }
   <p><em>{{ desc }}</em></p>
-  {% endif %}
+  { endif }
 </div>
-{%- endmacro %}
+{- endmacro }
 ```
 
 The result will be:

@@ -69,7 +69,7 @@ Next is an example usage of the `definitions` variable.
 
 glossary.html
 ```
-{% for def in definitions | sort(attribute='title') %}
+{ for def in definitions | sort(attribute='title') }
 <dl>
   <a name="{{ def.anchor }}"></a>
   <dt><h4>{{ def.title }}</h4></dt>
@@ -79,10 +79,10 @@ glossary.html
       <span>Defined in: <a href="{{ def.source.url }}#{{ def.anchor }}">{{ def.source.title }}</a>.</span>
       {% if def.see_also %}
       <span> See also: </span>
-      {% for also in def.see_also %}
+      { for also in def.see_also }
       <span><a href="{{ output_file }}#{{ also.anchor }}">{{ also.title }}</a>{% if not loop.last %}, {% else %}.{% endif %}</span>
-      {% endfor%}
-      {% endif %}
+      { endfor}
+      { endif }
     </i></p>
   </dd>
 </dl>

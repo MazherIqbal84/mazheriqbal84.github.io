@@ -77,10 +77,10 @@ glossary.html
     <p>{{ def.definition }}</p>
     <p><i>
       <span>Defined in: <a href="{{ def.source.url }}#{{ def.anchor }}">{{ def.source.title }}</a>.</span>
-      {% if def.see_also %}
+      { if def.see_also }
       <span> See also: </span>
       { for also in def.see_also }
-      <span><a href="{{ output_file }}#{{ also.anchor }}">{{ also.title }}</a>{% if not loop.last %}, {% else %}.{% endif %}</span>
+      <span><a href="{{ output_file }}#{{ also.anchor }}">{{ also.title }}</a>{ if not loop.last }, { else }.{ endif }</span>
       { endfor}
       { endif }
     </i></p>

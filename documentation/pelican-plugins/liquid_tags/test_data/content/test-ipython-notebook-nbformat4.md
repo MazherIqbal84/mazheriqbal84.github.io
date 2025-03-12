@@ -10,8 +10,8 @@ no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 #Loading an entire notebook nbformat = 4.0
 
-{% notebook test_nbformat4.ipynb %}
+{ notebook test_nbformat4.ipynb }
 
 #Loading selected cells from a notebook nbformat = 4.0
 
-{% notebook test_nbformat4.ipynb cells[1:5] %}
+{ notebook test_nbformat4.ipynb cells[1:5] }

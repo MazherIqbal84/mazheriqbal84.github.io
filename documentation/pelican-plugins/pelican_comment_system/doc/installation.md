@@ -94,9 +94,9 @@ Attribute  | Description
 {% if article.comments %}
 	{% for comment in article.comments recursive %}
 		{% if loop.depth0 == 0 %}
-			{% set marginLeft = 0 %}
+			{ set marginLeft = 0 }
 		{% else %}
-			{% set marginLeft = 50 %}
+			{ set marginLeft = 50 }
 		{% endif %}
 			<article id="comment-{{comment.slug}}" style="border: 1px solid #DDDDDD; padding: 5px 0px 0px 5px; margin: 0px -1px 5px {{marginLeft}}px;">
 				<a href="{{ SITEURL }}/{{ article.url }}#comment-{{comment.slug}}" rel="bookmark" title="Permalink to this comment">Permalink</a>

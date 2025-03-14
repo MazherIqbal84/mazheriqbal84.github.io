@@ -175,7 +175,7 @@ Tags:
 Author:
 Summary:
 
-{% notebook path/from/content/dir/to/notebook.ipynb %}
+{ notebook path/from/content/dir/to/notebook.ipynb }
 ```
 
 ## Recommend mode?
@@ -229,15 +229,15 @@ If you are using the Markup mode then just add this variables to your `pelicanco
 | `IPYNB_STOP_SUMMARY_TAGS = [('div', ('class', 'input')), ('div', ('class', 'output')), ('h2', ('id', 'Header-2'))]` | [markup only] List of tuples with the html tag and attribute (python HTMLParser format) that are used to stop the summary creation, this is useful to generate valid/shorter summaries. |
 | `IPYNB_GENERATE_SUMMARY = True` | [markup only] Create a summary based on the notebook content. Every notebook can still use the s`Summary` from the metadata to overwrite this. |
 | `IPYNB_EXTEND_STOP_SUMMARY_TAGS` | [markup only] List of tuples to extend the default `IPYNB_STOP_SUMMARY_TAGS`. |
-| `IPYNB_NB_SAVE_AS` | [markup only] If you want to make the original notebook available set this variable in a  is similar way to the default pelican `ARTICLE_SAVE_AS` setting. This will also add a metadata field `nb_path` which can be used in the theme. e.g. `blog/{date:%Y}/{date:%m}/{date:%d}/{slug}/notebook.ipynb` |
+| `IPYNB_NB_SAVE_AS` | [markup only] If you want to make the original notebook available set this variable in a  is similar way to the default pelican `ARTICLE_SAVE_AS` setting. This will also add a metadata field `nb_path` which can be used in the theme. e.g. `blog/{date:Y}/{date:m}/{date:d}/{slug}/notebook.ipynb` |
 | `IGNORE_FILES = ['.ipynb_checkpoints']` | [Pelican setting useful for markup] Prevents pelican from trying to parse notebook checkpoint files. |
 
 Example template for `IPYNB_EXPORT_TEMPLATE`:
 
 ```
-{%- extends 'basic.tpl' -%}
+{- extends 'basic.tpl' -}
 
-{% block header %}
+{ block header }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -245,5 +245,5 @@ div.code_cell {
     border: 2px solid red;
 }
 </style>
-{%- endblock header %}
+{- endblock header }
 ```

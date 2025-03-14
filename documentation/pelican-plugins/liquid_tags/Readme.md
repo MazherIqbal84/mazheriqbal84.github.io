@@ -7,7 +7,7 @@
 *Author: Jake Vanderplas <jakevdp@cs.washington.edu>*
 
 This plugin allows liquid-style tags to be inserted into Markdown within
-Pelican documents via tags bounded by `{% ... %}`, a convention also used
+Pelican documents via tags bounded by `{ ... }`, a convention also used
 to extend Markdown in other publishing platforms such as Octopress.
 
 This set of extensions does not actually interface with liquid, but allows
@@ -28,7 +28,7 @@ Following below is more information about these and other tags.
 To insert a sized and labeled image in your document, enable the
 `liquid_tags.img` plugin and use the following:
 
-    {% img [class name(s)] path/to/image [width [height]] [title text | "title text" ["alt text"]] %}
+    { img [class name(s)] path/to/image [width [height]] [title text | "title text" ["alt text"]] }
 
 ### Base64 Image (inline image) tag
 
@@ -37,14 +37,14 @@ To insert a sized and labeled image in your document, enable the
 To use it:
 
 1. Enable `liquid_tags.b64img`
-1. Insert a tag as follows: `{% b64img [class name(s)] path/to/image [width [height]] [title text | "title text" ["alt text"]] %}`
+1. Insert a tag as follows: `{ b64img [class name(s)] path/to/image [width [height]] [title text | "title text" ["alt text"]] }`
 
 Images are encoded at generation time, so you can use any local path (just be sure that the image will remain in the same location for subsequent site generations).
 
 ## Instagram Tag
 To insert a sized and labeled Instagram image in your document by its shortcode (such as `pFI0CAIZna`), enable the `liquid_tags.gram` plugin and use the following:
 
-    {% gram shortcode [size] [width] [class name(s)] [title text | "title text" ["alt text"]] %}
+    { gram shortcode [size] [width] [class name(s)] [title text | "title text" ["alt text"]] }
 
 You can specify a size with `t`, `m`, or `l`.
 
@@ -56,12 +56,12 @@ To insert a Flickr image to a post, follow these steps:
 3. Add FLICKR_API_KEY to your settings file
 4. Add this to your source document:
 
-    {% flickr image_id [small|medium|large] ["alt text"|'alt text'] %}
+    { flickr image_id [small|medium|large] ["alt text"|'alt text'] }
 
 ## Giphy Tag
 To insert a GIF from Giphy in your document by its ID (such as `aMSJFS6oFX0fC`), enable the `liquid_tags.giphy` plugin and use the following:
 
-    {% giphy gif_id ["alt text"|'alt text'] %}
+    { giphy gif_id ["alt text"|'alt text'] }
 
 **Important:** You must [request a production API key](https://api.giphy.com/submit) from Giphy.
 If you just want to try it out, you can use the public beta key contained within the [GiphyAPI](https://github.com/giphy/GiphyAPI) README file.
@@ -107,7 +107,7 @@ Embedded thumbnails have CSS class 'youtube_video' which can be used to add
 To insert a Vimeo video into your content, enable the `liquid_tags.vimeo`
 plugin and add the following to your source document:
 
-    {% vimeo vimeo_id [width] [height] %}
+    { vimeo vimeo_id [width] [height] }
 
 The width and height are in pixels and are optional. If they
 are not specified, then the dimensions will be 640 (wide) by 390 (tall).
@@ -137,7 +137,7 @@ To insert a Speakerdeck viewer into your content, follow these steps:
 To insert HTML5-friendly video into your content, enable the `liquid_tags.video`
 plugin and add the following to your source document:
 
-    {% video /url/to/video.mp4 [width] [height] [/path/to/poster.png] %}
+    { video /url/to/video.mp4 [width] [height] [/path/to/poster.png] }
 
 The width and height are in pixels and are optional. If they are not specified,
 then the native video size will be used. The poster image is a preview image

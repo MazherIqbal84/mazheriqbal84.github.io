@@ -72,13 +72,13 @@ To insert a Soundcloud widget in your content, follow these steps:
 1. Enable `liquid_tags.soundcloud`
 2. Add this to your source document:
 
-    {% soundcloud track_url %}
+    { soundcloud track_url }
 
 ## YouTube Tag
 To insert a YouTube video into your content, enable the
 `liquid_tags.youtube` plugin and add the following to your source document:
 
-    {% youtube youtube_id [width] [height] %}
+    { youtube youtube_id [width] [height] }
 
 The width and height are in pixels and are optional. If they
 are not specified, then the dimensions will be 640 (wide) by 390 (tall).
@@ -123,7 +123,7 @@ To insert a Speakerdeck viewer into your content, follow these steps:
 2. Add the following to your source document:
 
   ```html
-  {% speakerdeck speakerdeck_id [ratio] %}
+  { speakerdeck speakerdeck_id [ratio] }
   ```
 
 ### Note
@@ -149,7 +149,7 @@ to your server, and available at the specified URL.
 To insert HTML5 audio into a post, enable the `liquid_tags.audio` plugin
 and add the following to your source document:
 
-    {% audio url/to/audio [url/to/audio] [url/to/audio] %}
+    { audio url/to/audio [url/to/audio] [url/to/audio] }
 
 This tag supports up to three audio URL arguments so you can add different
 audio file versions, as different browsers support different file formats.
@@ -162,11 +162,11 @@ To include code from a file in your document with a link to the original
 file, enable the `liquid_tags.include_code` plugin, and add the following to
 your source document:
 
-    {% include_code /path/to/code.py [lang:python] [lines:X-Y] [:hidefilename:] [title] %}
+    { include_code /path/to/code.py [lang:python] [lines:X-Y] [:hidefilename:] [title] }
 
 All arguments are optional but must be specified in the order shown above.
 
-    {% include_code /path/to/code.py lines:1-10 Test Example %}
+    { include_code /path/to/code.py lines:1-10 Test Example }
 
 This example will show the first ten lines of the file.
 
@@ -179,7 +179,7 @@ If you would like to hide all three, i.e. title, filename and download link, use
 
 Following examples hides the filename.
 
-    {% include_code /path/to/code.py lines:1-10 :hidefilename: Test Example %}
+    { include_code /path/to/code.py lines:1-10 :hidefilename: Test Example }
 
 The script must be in the `code` subdirectory of your content folder;
 the default location can be changed by specifying the directory in your
@@ -197,7 +197,7 @@ be listed in the STATIC_PATHS setting. For example:
 To insert an [IPython][] notebook into your post, enable the
 ``liquid_tags.notebook`` plugin and add the following to your source document:
 
-    {% notebook filename.ipynb %}
+    { notebook filename.ipynb }
 
 The file should be specified relative to the `notebooks` subdirectory of the
 content directory. Optionally, this subdirectory can be specified in your
@@ -215,9 +215,9 @@ called `_nb_header.html` will be generated in the main directory. The content
 of this file should be included in the header of your theme. An easy way to
 accomplish this is to add the following to your theme’s header template…
 
-      {% if EXTRA_HEADER %}
+      { if EXTRA_HEADER }
       {{ EXTRA_HEADER }}
-      {% endif %}
+      { endif }
 
 … and in your settings file, include the line:
 
@@ -232,13 +232,13 @@ The notebook tag also has two optional arguments: `cells` and `language`.
 
 - You can specify a slice of cells to include:
 
-  `{% notebook filename.ipynb cells[2:8] %}`
+  `{ notebook filename.ipynb cells[2:8] }`
 
 - You can also specify the name of the language that Pygments should use for
   highlighting code cells. For a list of the language short names that Pygments
   can highlight, refer to the [Pygments lexer list](http://www.pygments.org/docs/lexers/).
 
-  `{% notebook filename.ipynb language[julia] %}`
+  `{ notebook filename.ipynb language[julia] }`
 
   This may be helpful for those using [IJulia](https://github.com/JuliaLang/IJulia.jl)
   or notebooks in other languages, especially as the IPython project [broadens its
@@ -249,7 +249,7 @@ The notebook tag also has two optional arguments: `cells` and `language`.
 - These options can be used separately, together, or not at all. However,
   if both tags are used then `cells` must come before `language`:
 
-  `{% notebook filename.ipynb cells[2:8] language[julia] %}`
+  `{ notebook filename.ipynb cells[2:8] language[julia] }`
 
 ### Collapsible Code in IPython Notebooks
 

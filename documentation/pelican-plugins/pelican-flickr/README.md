@@ -93,7 +93,7 @@ Here is basically the content of the default file:
     <img src="{{photo.sizes.largesquare.source}}" title="{{photo.title}}" />
   </a>
 {% endfor %}
-{% endblock %}
+{ endblock }
 ```
 
 A photoset has an instance of a photo named **primary** which is the cover picture of the set.

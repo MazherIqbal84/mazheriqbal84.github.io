@@ -6,7 +6,7 @@ A [Pelican][1] plugin that adds a `page_order` attribute to all pages
 if one is not defined. Allows your templates to sort pages as follows:
 
 ```python
-{% for p in PAGES|sort(attribute='page_order') %}
+{ for p in PAGES|sort(attribute='page_order') }
 ```
 
 Without this plugin, to be able to use the line above in your

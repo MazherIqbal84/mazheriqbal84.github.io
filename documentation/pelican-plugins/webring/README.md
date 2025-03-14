@@ -87,13 +87,13 @@ Edit the `notmyidea/templates/base.html` file and make it look like this:
         {% if WEBRING_FEED_URLS %}
             <div class="webring">
                 <h2>Webring</h2>
-                {% for article in webring_articles %}
+                { for article in webring_articles }
                 <p><a href="{{ article.link }}">{{ article.title }}</a></p>
                 <p>{{ article.date|strftime('%d %B %Y') }} - {{ article.summary}}</p>
-                {% endfor %}
+                { endfor }
             </div>
         {% endif %}
-        {% if LINKS %}
+        { if LINKS }
         ...
 ```
 

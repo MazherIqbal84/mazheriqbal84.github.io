@@ -121,28 +121,28 @@ Two more things:
 - If an error occurs during a chart configuration or generation, the corresponding key will not be available. So it's a good idea to add a test before using a key.
 
 ```jinja
-{% extends 'base.html' %}
-{% block head %}
+{ extends 'base.html' }
+{ block head }
 {{ super() }}
 <link href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/panorama/nvd3/src/nv.d3.css" rel="stylesheet"/>
 <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/panorama/d3/d3.min.js"></script>
 <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/panorama/nvd3/nv.d3.min.js"></script>
-{% endblock %}
+{ endblock }
 
-{% block content %}
+{ block content }
 <section id="content">
     <header>
         <h1 class="entry-title">Statistiques</h1>
     </header>
     <div class="entry-content">
-		    {% for chart in panorama_charts.values() %}
+		    { for chart in panorama_charts.values() }
                 <h2>{{ chart.name }}</h2>
                 {{ chart.container }}
                 {{ chart.htmlcontent }}
-            {% endfor %}
+            { endfor }
     </div>
 </section>
-{% endblock %}
+{ endblock }
 ```
 ## Configuration
 

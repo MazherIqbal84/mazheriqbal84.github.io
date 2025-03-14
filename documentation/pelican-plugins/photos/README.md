@@ -151,12 +151,12 @@ For example, add the following to the template `article.html` to add the gallery
 ```html
 {% if article.photo_gallery %}
 <div class="gallery">
-		{% for title, gallery in article.photo_gallery %}
+		{ for title, gallery in article.photo_gallery }
 			<h1>{{ title }}</h1>
-				{% for name, photo, thumb, exif, caption in gallery %}
+				{ for name, photo, thumb, exif, caption in gallery }
 						<a href="{{ SITEURL }}/{{ photo }}" title="{{ name }}" exif="{{ exif }}" caption="{{ caption }}"><img src="{{ SITEURL }}/{{ thumb }}"></a>
-				{% endfor %}
-		{% endfor %}
+				{ endfor }
+		{ endfor }
 </div>
 {% endif %}
 ```
@@ -220,16 +220,16 @@ If you are using bootstrap, the following code is an example of how one could cr
 
 ```html
 {% if article.photo_gallery %}
-  {% for title, gallery in article.photo_gallery %}
+  { for title, gallery in article.photo_gallery }
     <h1>{{ title }}</h1>
     <div id="carousel-{{ loop.index }}" class="carousel slide">
       <ol class="carousel-indicators">
-          {% for i in range(0, gallery|length) %}
+          { for i in range(0, gallery|length) }
           <li data-target="#carousel-{{ loop.index }}" data-slide-to="{{ i }}" {% if i==0 %} class="active" {% endif %}></li>
-          {% endfor %}
+          { endfor }
       </ol>
       <div class="carousel-inner">
-        {% for name, photo, thumb, exif, caption in gallery %}
+        { for name, photo, thumb, exif, caption in gallery }
           {% if loop.first %}
             <div class="item active">
           {% else %}
@@ -240,7 +240,7 @@ If you are using bootstrap, the following code is an example of how one could cr
               <h5>{{ caption }}</h5>
           </div> <!-- carousel-caption -->
         </div> <!-- item -->
-        {% endfor %}
+        { endfor }
       </div> <!-- carousel-inner -->
       <a class="left carousel-control" href="#carousel-{{ loop.index }}" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left"></span>
@@ -249,7 +249,7 @@ If you are using bootstrap, the following code is an example of how one could cr
         <span class="glyphicon glyphicon-chevron-right"></span>
       </a>
     </div> <!-- closes carousel-{{ loop.index }} -->
-    {% endfor %}
+    { endfor }
 {% endif %}
 ```
 

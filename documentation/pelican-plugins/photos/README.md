@@ -131,7 +131,7 @@ For example, modify the template `article.html` as shown below to display the as
 ```html
 <div class="entry-content">
 	{% if article.photo_image %}<img src="{{ SITEURL }}/{{ article.photo_image[1] }}" />{% endif %}
-	{% include 'article_infos.html' %}
+	{ include 'article_infos.html' }
 	{{ article.content }}
 </div><!-- /.entry-content -->
 ```

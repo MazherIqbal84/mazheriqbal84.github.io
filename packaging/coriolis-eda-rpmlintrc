@@ -1,5 +1,0 @@
-
-addFilter("script-without-shebang .*tcl")
-addFilter("env-script-interpreter .*tcl")
-addFilter("files-duplicated-waste .*")
-addFilter("executable-docs .*")

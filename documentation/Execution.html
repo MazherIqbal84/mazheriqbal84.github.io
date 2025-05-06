@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Executing a Benchmark &#8212; Coriolis-2.x 2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a7e3f902"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="executing-a-benchmark">
+<h1>Executing a Benchmark<a class="headerlink" href="#executing-a-benchmark" title="Permalink to this heading">¶</a></h1>
+<p>Alliance-check-toolkit comprises of several benchmarks and examples. To execute a circuit with coriolis, first, you have to clone alliance-check-toolkit.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lip6/alliance-check-toolkit
+</pre></div>
+</div>
+<p>Before, executing a circuit, install doit and yosys.</p>
+<p>To install python doit.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">doit</span><span class="o">==</span><span class="m">0</span>.33.0
+</pre></div>
+</div>
+<p>To install yosys on <a href="#id1"><span class="problematic" id="id2">|Debian|</span></a> 12 or <a href="#id3"><span class="problematic" id="id4">|Ubuntu|</span></a> 22 or  compatible distributions</p>
+<p>Prerequisites of yosys,</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>tcl-dev<span class="w"> </span>readline-dev<span class="w"> </span>libffi-dev
+dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>yosys
+</pre></div>
+</div>
+<p>To install yosys on <a href="#id5"><span class="problematic" id="id6">|RHEL|</span></a> 9  or compatible distributions</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>clang<span class="w"> </span>tcl-devel<span class="w"> </span>readline-devel<span class="w"> </span>bison<span class="w"> </span>flex<span class="w"> </span>libffi-devel
+dummy@lepka:~&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/YosysHQ/yosys.git
+dummy@lepka:~&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>yosys
+dummy@lepka:yosys&gt;<span class="w"> </span>make<span class="w"> </span>clean
+dummy@lepka:yosys&gt;<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>After installting doit and yosys, navigate to exacte directory of benchmark, as an example, arlet6502</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>coriolis-2.x/src/alliance-check-toolkit/benchs/arlet6502/sky130_c4m
+dummy@lepka:sky130_c4m&gt;<span class="w"> </span>../../../bin/crlenv.py<span class="w"> </span>doit<span class="w"> </span>list
+</pre></div>
+</div>
+<p>you can perform all the steps using the follwoing commands, such as,  for sythesis,</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:sky130_c4m&gt;<span class="w"> </span>../../../bin/crlenv.py<span class="w"> </span>doit<span class="w"> </span>yosys
+</pre></div>
+</div>
+<section id="help">
+<h2>Help<a class="headerlink" href="#help" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">list</span></code>   – shows all possible commands</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">yosys</span></code>       – This command performs logical systhesis.  It takes Arlet6502.v as an input and generate Arlet6502.blif</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">b2v</span></code>         – It transforms Arlet6502.blif to coriolis netlist format. it takes Arlet6502.blif as an input and generates two files, Arlet6502.vst (structrural VHDL), and Arlet6502.spi (structural spice model).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">pnr</span></code>         – It performs placement and routing and genarates final physical layout file Arlet6502_cts_r.ap. It also generates Arlet6502_cts_r.spi and Arlet6502_cts_r.vst. It depends on Arlet6502.vst and Arlet6502.spi. You can run this command directly, it performs frist previous steps automatically.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">cgt</span></code>         – Open physcial layout file on cgt. click on File-&gt;open cell, enter the name of the design,  such as Arlet6502_cts_r.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">druc</span></code>        – Symbolic layout checker, It is a design rule check (druc). It depends on arlet6502_cts_r and generates an error file arlet6502_cts_r.drc. It also generates arlet6502_cts_r_rng.gds and arlet6502_cts_drc.gds.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">cougar</span></code>      – Symbolic layout extractor, it generates arlet6502_cts_r_ext.vst.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">lvx</span></code>        – Gate Netlist Comparator, it compares chip layout against extracted netlist.</p></li>
+</ol>
+</section>
+<section id="clean">
+<h2>Clean<a class="headerlink" href="#clean" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">doit</span> <span class="pre">clean_flow</span></code>     – remove all generated files.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Coriolis-2.x</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, MazherLip6.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Execution.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

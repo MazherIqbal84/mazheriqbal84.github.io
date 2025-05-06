@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation &#8212; Coriolis-2.x 2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a7e3f902"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<p>We reccomend installing directly from Pypi &lt;<a class="reference external" href="https://pypi.org/">https://pypi.org/</a>&gt;`_. First install Python 3.9 or later as appropriate for your system, then:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>coriolis-eda
+</pre></div>
+</div>
+<p>You can also install coriolis and alliance using RPM and DEB packages.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm<span class="w"> </span>-Uvh<span class="w"> </span>coriolis-2.5.5-1.el9.x86_64.rpm<span class="w"> </span>alliance-5.0.0-1.el9.x86_64.rpm
+</pre></div>
+</div>
+</section>
+<section id="building-from-source">
+<h1>Building from Source<a class="headerlink" href="#building-from-source" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p><a href="#id1"><span class="problematic" id="id2">|newpage|</span></a></p>
+<section id="installing-on-debian-12-ubuntu-22-or-compatible-distributions">
+<h2>Installing on <a href="#id3"><span class="problematic" id="id4">|Debian|</span></a> 12, <a href="#id5"><span class="problematic" id="id6">|Ubuntu|</span></a> 22 or compatible distributions<a class="headerlink" href="#installing-on-debian-12-ubuntu-22-or-compatible-distributions" title="Permalink to this heading">¶</a></h2>
+<p>First, install or check that the required prerequisites are installed:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>git<span class="w"> </span>ccache<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>python3-venv<span class="w"> </span>doxygen<span class="w"> </span>pelican<span class="w"> </span>texlive-latex-recommended<span class="w"> </span><span class="se">\</span>
+<span class="w">                             </span>bison<span class="w"> </span>flex<span class="w"> </span>qtbase5-dev<span class="w"> </span>libqt5svg5-dev<span class="w"> </span>libqwt-qt5-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">                             </span>libbz2-dev<span class="w"> </span>rapidjson-dev<span class="w"> </span>libboost-all-dev<span class="w"> </span>libeigen3-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>libxml2-dev<span class="w"> </span>pkg-config<span class="w"> </span>meson
+install<span class="w"> </span>pdm
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sSL<span class="w"> </span>https://pdm-project.org/install-pdm.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>Second step is to create the source directory and pull the <a href="#id7"><span class="problematic" id="id8">|git|</span></a> repository:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/lip6/coriolis
+</pre></div>
+</div>
+<p>Third and final step, build &amp; install:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>coriolis
+dummy@lepka:coriolis&gt;<span class="w"> </span>make<span class="w"> </span>-f<span class="w"> </span>Makefile.LIP6<span class="w"> </span>install
+</pre></div>
+</div>
+<p>To install <a href="#id9"><span class="problematic" id="id10">|alliance|</span></a></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>make<span class="w"> </span>-f<span class="w"> </span>Makefile.LIP6<span class="w"> </span>install_alliance
+</pre></div>
+</div>
+<p>To documentation</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>make<span class="w"> </span>-f<span class="w"> </span>Makefile.LIP6<span class="w"> </span>install_docs
+</pre></div>
+</div>
+<p><a href="#id11"><span class="problematic" id="id12">|newpage|</span></a></p>
+</section>
+<section id="installing-on-red-hat-enterprise-linux-9-or-compatible-distributions">
+<h2>Installing on <a href="#id13"><span class="problematic" id="id14">|Red Hat Enterprise Linux|</span></a> 9,  or compatible distributions<a class="headerlink" href="#installing-on-red-hat-enterprise-linux-9-or-compatible-distributions" title="Permalink to this heading">¶</a></h2>
+<p>First,  install prerequisites to install and build coriolis:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>python3-pip<span class="w"> </span>git<span class="w"> </span>cmake<span class="w"> </span>gcc-c++<span class="w"> </span>clang<span class="w"> </span><span class="se">\</span>
+<span class="w">                        </span>libstdc++-devel<span class="w"> </span>libxml2-devel<span class="w"> </span>flex<span class="w"> </span>bison<span class="w"> </span>boost-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">                                </span>boost-python3<span class="w"> </span>boost-filesystem<span class="w"> </span>boost-regex<span class="w"> </span>boost-wave<span class="w"> </span><span class="se">\</span>
+<span class="w">                                         </span>bzip2-devel<span class="w"> </span>python3-devel<span class="w"> </span>texlive
+</pre></div>
+</div>
+<p>To install pdm</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>curl<span class="w"> </span>-sSL<span class="w"> </span>https://pdm-project.org/install-pdm.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-
+</pre></div>
+</div>
+<p>Install meson, ninja and pelican</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>meson<span class="w"> </span>ninja<span class="w"> </span>pelican
+</pre></div>
+</div>
+<p>Install Eign3 and doxygen</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>--enablerepo<span class="o">=</span>crb<span class="w"> </span>install<span class="w"> </span>eigen3-devel<span class="w"> </span>doxygen<span class="w"> </span>qt5<span class="w"> </span>qt5-devel
+</pre></div>
+</div>
+<p>Install  Rapidjson</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Tencent/rapidjson.git
+dummy@lepka:~&gt;<span class="w"> </span>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init
+dummy@lepka:~&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>rapidjson
+dummy@lepka:rapidjson&gt;<span class="w"> </span>mkdir<span class="w"> </span>build
+dummy@lepka:rapidjson&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+dummy@lepka:rapidjson&gt;<span class="w"> </span>cmake<span class="w"> </span>..
+dummy@lepka:rapidjson&gt;<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Second step is to create the source directory and pull the <a href="#id15"><span class="problematic" id="id16">|git|</span></a> repository:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:~&gt;<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/coriolis-2.x/src
+dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/lip6/coriolis
+</pre></div>
+</div>
+<p>Third and final step, build &amp; install:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>coriolis
+dummy@lepka:coriolis&gt;<span class="w"> </span>make<span class="w"> </span>-f<span class="w"> </span>Makefile.LIP6<span class="w"> </span>install
+</pre></div>
+</div>
+<p>To documentation</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>make<span class="w"> </span>-f<span class="w"> </span>Makefile.LIP6<span class="w"> </span>install_docs
+</pre></div>
+</div>
+<section id="hooking-up-into-alliance">
+<h3>Hooking up into <a href="#id17"><span class="problematic" id="id18">|Alliance|</span></a><a class="headerlink" href="#hooking-up-into-alliance" title="Permalink to this heading">¶</a></h3>
+<p><a href="#id19"><span class="problematic" id="id20">|Coriolis|</span></a> relies on <a href="#id21"><span class="problematic" id="id22">|Alliance|</span></a> for the cell libraries. So after installing or
+packaging, you must install it so that it can found those libraries.</p>
+<p>First clone,</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:src&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lip6/alliance
+</pre></div>
+</div>
+<p>Then install it.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:coriolis&gt;<span class="w"> </span>make<span class="w"> </span>-f<span class="w"> </span>Makefile.LIP6<span class="w"> </span>install_alliance
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Coriolis-2.x</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, MazherLip6.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

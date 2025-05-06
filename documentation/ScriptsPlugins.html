@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python Interface for |Hurricane| / |Coriolis| &#8212; Coriolis-2.x 2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a7e3f902"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p id="python-interface-to-coriolis"><a href="#id27"><span class="problematic" id="id28">|newpage|</span></a></p>
+<section id="python-interface-for-hurricane-coriolis">
+<h1>Python Interface for <a href="#id29"><span class="problematic" id="id30">|Hurricane|</span></a> / <a href="#id31"><span class="problematic" id="id32">|Coriolis|</span></a><a class="headerlink" href="#python-interface-for-hurricane-coriolis" title="Permalink to this heading">¶</a></h1>
+<p>The (almost) complete interface of <a href="#id33"><span class="problematic" id="id34">|Hurricane|</span></a> is exported as a <a href="#id35"><span class="problematic" id="id36">|Python|</span></a> module
+and some part of the other components of <a href="#id37"><span class="problematic" id="id38">|Coriolis|</span></a> (each one in a separate
+module). The interface has been made to mirror as closely as possible the
+C++ one, so the C++ doxygen documentation could be used to write code with
+either languages.</p>
+<p><a class="reference external" href="file:../../../index.html">Summary of the C++ Documentation</a></p>
+<p>A script could be run directly in text mode from the command line or through
+the graphical interface (see <cite>Python Scripts in Cgt</cite>).</p>
+<p>Aside for this requirement, the python script can contain anything valid
+in <a href="#id39"><span class="problematic" id="id40">|Python|</span></a>, so don’t hesitate to use any package or extention.</p>
+<p>Small example of Python/Stratus script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Hurricane</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Stratus</span>   <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">doSomething</span> <span class="p">():</span>
+    <span class="c1"># ...</span>
+    <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">scriptMain</span> <span class="p">(</span> <span class="o">**</span><span class="n">kw</span> <span class="p">):</span>
+  <span class="n">editor</span> <span class="o">=</span> <span class="kc">None</span>
+  <span class="k">if</span> <span class="n">kw</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;editor&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;editor&#39;</span><span class="p">]:</span>
+    <span class="n">editor</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;editor&#39;</span><span class="p">]</span>
+    <span class="n">stratus</span><span class="o">.</span><span class="n">setEditor</span><span class="p">(</span> <span class="n">editor</span> <span class="p">)</span>
+
+  <span class="n">doSomething</span><span class="p">()</span>
+  <span class="k">return</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+  <span class="n">kw</span>           <span class="o">=</span> <span class="p">{}</span>
+  <span class="n">success</span>      <span class="o">=</span> <span class="n">scriptMain</span><span class="p">(</span> <span class="o">**</span><span class="n">kw</span> <span class="p">)</span>
+  <span class="n">shellSuccess</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span> <span class="n">shellSuccess</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span> <span class="n">shellSuccess</span> <span class="p">)</span>
+      <span class="n">scriptMain</span> <span class="p">()</span>
+</pre></div>
+</div>
+<p>This typical script can be executed in two ways:</p>
+<ol class="arabic">
+<li><p>Run directly as a <a href="#id41"><span class="problematic" id="id42">|Python|</span></a> script, thanks to the</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>
+</pre></div>
+</div>
+<p>part (this is standart <a href="#id43"><span class="problematic" id="id44">|Python|</span></a>). It is a simple adapter that will
+calls  <a href="#id1"><span class="problematic" id="id2">:cb:`scriptMain()`</span></a>.</p>
+</li>
+<li><p>Through <a href="#id45"><span class="problematic" id="id46">|cgt|</span></a>, either in text or graphical mode. In that case, the
+<a href="#id3"><span class="problematic" id="id4">:cb:`scriptMain()`</span></a> is directly called trough a sub-interpreter.
+The arguments of the script are passed through the <code class="docutils literal notranslate"><span class="pre">**kw</span></code> dictionnary.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>**kw Dictionnary</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Parameter Key/Name</p></th>
+<th class="head"><p>Contents type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'cell'</span></code></p></td>
+<td><p>A Hurricane cell on which to work. Depending
+on the context, it may be <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+For example, when run from <a href="#id47"><span class="problematic" id="id48">|cgt|</span></a>, it the cell
+currently loaded in the viewer, if any.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'editor'</span></code></p></td>
+<td><p>The viewer from which the script is run, when
+lauched through <a href="#id49"><span class="problematic" id="id50">|cgt|</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<section id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading">¶</a></h2>
+<p>Plugins are <a href="#id51"><span class="problematic" id="id52">|Python|</span></a> scripts specially crafted to integrate with <a href="#id53"><span class="problematic" id="id54">|cgt|</span></a>.
+Their entry point is a <a href="#id5"><span class="problematic" id="id6">:cb:`scriptMain()`</span></a> method as described in
+<a class="reference internal" href="#python-interface-to-coriolis">Python Interface to Coriolis</a>. They can be called by user scripts
+through this method.</p>
+<section id="chip-placement">
+<h3>Chip Placement<a class="headerlink" href="#chip-placement" title="Permalink to this heading">¶</a></h3>
+<p>Automatically perform the placement of a complete chip. This plugin, as well
+as the other P&amp;R tools expect a specific top-level hierarchy for the design.
+The top-level hierarchy must contains the instances of all the I/O pads and
+<strong>exactly one</strong> instance named <code class="docutils literal notranslate"><span class="pre">corona</span></code> of an eponym cell <code class="docutils literal notranslate"><span class="pre">corona</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">corona</span></code> cell in turn containing the instance of the chip’s core model.</p>
+<p>The intermediate <code class="docutils literal notranslate"><span class="pre">corona</span></code> hierarchical level has been introduced to handle
+the possible discoupling between real I/O pads supplied by a foundry and a
+symbolic core. So the <em>chip</em> level contains only real layout and the corona
+and below only symbolic layer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This do not prevent having a design either fully symbolic (pads and core)
+or fully real.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">corona</span></code> also avoid the router to actually have to manage directly
+the pads which simplificate it’s configuration and accessorily avoid
+to have the pads stuffed with blockages.</p>
+</div>
+<p><a href="#id55"><span class="problematic" id="id56">|bcenter|</span></a> <a href="#id57"><span class="problematic" id="id58">|ChipStructure-1|</span></a> <a href="#id59"><span class="problematic" id="id60">|ecenter|</span></a></p>
+<p>The designer must provide a configuration file that defines the rules for the
+placement of the top-level hierarchy (that is, the pads and the core).
+This file must be named after the chip’s name, by appending <code class="docutils literal notranslate"><span class="pre">_ioring.py</span></code>
+(obviously, it is a <a href="#id61"><span class="problematic" id="id62">|Python|</span></a> file). For instance if the chip netlist file
+is called <code class="docutils literal notranslate"><span class="pre">amd2901.vst</span></code>, then the configuration file must be named
+<code class="docutils literal notranslate"><span class="pre">amd2901_ioring.vst</span></code>.</p>
+<p>Example of chip placement configuration file (for <code class="docutils literal notranslate"><span class="pre">AM2901</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">helpers</span> <span class="kn">import</span> <span class="n">l</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span>
+
+<span class="n">chip</span> <span class="o">=</span> \
+  <span class="p">{</span> <span class="s1">&#39;pads.ioPadGauge&#39;</span> <span class="p">:</span> <span class="s1">&#39;pxlib&#39;</span>
+  <span class="p">,</span> <span class="s1">&#39;pads.south&#39;</span>      <span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;p_a3&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_a2&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_a1&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_r0&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_vddick0&#39;</span><span class="p">,</span> <span class="s1">&#39;p_vssick0&#39;</span><span class="p">,</span> <span class="s1">&#39;p_a0&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_i6&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_i8&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_i7&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_r3&#39;</span>     <span class="p">]</span>
+  <span class="p">,</span> <span class="s1">&#39;pads.east&#39;</span>       <span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;p_zero&#39;</span>   <span class="p">,</span> <span class="s1">&#39;p_i0&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_i1&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_i2&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_vddeck0&#39;</span><span class="p">,</span> <span class="s1">&#39;p_vsseck0&#39;</span><span class="p">,</span> <span class="s1">&#39;p_q3&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_b0&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_b1&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_b2&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_b3&#39;</span>     <span class="p">]</span>
+  <span class="p">,</span> <span class="s1">&#39;pads.north&#39;</span>      <span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;p_noe&#39;</span>    <span class="p">,</span> <span class="s1">&#39;p_y3&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_y2&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_y1&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_y0&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_vddeck1&#39;</span><span class="p">,</span> <span class="s1">&#39;p_vsseck1&#39;</span><span class="p">,</span> <span class="s1">&#39;p_np&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_ovr&#39;</span>    <span class="p">,</span> <span class="s1">&#39;p_cout&#39;</span>   <span class="p">,</span> <span class="s1">&#39;p_ng&#39;</span>     <span class="p">]</span>
+  <span class="p">,</span> <span class="s1">&#39;pads.west&#39;</span>       <span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;p_cin&#39;</span>    <span class="p">,</span> <span class="s1">&#39;p_i4&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_i5&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_i3&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_ck&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_d0&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_d1&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_d2&#39;</span>
+                        <span class="p">,</span> <span class="s1">&#39;p_d3&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_q0&#39;</span>     <span class="p">,</span> <span class="s1">&#39;p_f3&#39;</span>     <span class="p">]</span>
+  <span class="p">,</span> <span class="s1">&#39;core.size&#39;</span>       <span class="p">:</span> <span class="p">(</span> <span class="n">l</span><span class="p">(</span><span class="mi">1500</span><span class="p">),</span> <span class="n">l</span><span class="p">(</span><span class="mi">1500</span><span class="p">)</span> <span class="p">)</span>
+  <span class="p">,</span> <span class="s1">&#39;chip.size&#39;</span>       <span class="p">:</span> <span class="p">(</span> <span class="n">l</span><span class="p">(</span><span class="mi">3000</span><span class="p">),</span> <span class="n">l</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span> <span class="p">)</span>
+  <span class="p">,</span> <span class="s1">&#39;chip.clockTree&#39;</span>  <span class="p">:</span> <span class="kc">True</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>The file must contain <em>one dictionnary</em> named <code class="docutils literal notranslate"><span class="pre">chip</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p>Chip Dictionnary</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Parameter Key/Name</p></th>
+<th class="head"><p>Value/Contents type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'pad.ioPadGauge'</span></code></p></td>
+<td><p>The routing gauge to use for the pad. Must be given
+as it differs from the one used to route standard
+inside the core</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'pad.south'</span></code></p></td>
+<td><p>Ordered list (left to right) of pad instances names
+to put on the south side of the chip</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'pad.east'</span></code></p></td>
+<td><p>Ordered list (down to up) of pad instances names
+to put on the east side of the chip</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'pad.north'</span></code></p></td>
+<td><p>Ordered list (left to right) of pad instances names
+to put on the north side of the chip</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'pad.west'</span></code></p></td>
+<td><p>Ordered list (down to up) of pad instances names
+to put on the west side of the chip</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'core.size'</span></code></p></td>
+<td><p>The size of the core (to be used by the placer)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'chip.size'</span></code></p></td>
+<td><p>The size of the whole chip. The sides must be great
+enough to accomodate all the pads</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'chip.clockTree'</span></code></p></td>
+<td><p>Whether to generate a clock tree or not. This calls
+the ClockTree plugin</p></td>
+</tr>
+</tbody>
+</table>
+<p>Configuration parameters, defaults are defined in <code class="docutils literal notranslate"><span class="pre">etc/coriolis2/&lt;STECHNO&gt;/plugins.conf</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter Identifier</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="3"><p><strong>Chip Plugin Parameters</strong></p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">chip.block.rails.count</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><a href="#id7"><span class="problematic" id="id8">:cb:`5`</span></a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The minimum number of rails around the core
+block. Must be odd and suppérior to 5.
+One rail for the clock and at least two pairs
+of power/grounds</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">chip.block.rails.hWidth</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><a href="#id9"><span class="problematic" id="id10">:cb:`12`</span></a> <a href="#id63"><span class="problematic" id="id64">|lambda|</span></a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The horizontal with of the rails</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">chip.block.rails.vWidth</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><a href="#id11"><span class="problematic" id="id12">:cb:`12`</span></a> <a href="#id65"><span class="problematic" id="id66">|lambda|</span></a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The vertical with of the rails</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">chip.block.rails.hSpacing</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><a href="#id13"><span class="problematic" id="id14">:cb:`6`</span></a>  <a href="#id67"><span class="problematic" id="id68">|lambda|</span></a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The spacing, <em>edge to edge</em> of two adjacent
+horizontal rails</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">chip.block.rails.vSpacing</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><a href="#id15"><span class="problematic" id="id16">:cb:`6`</span></a>  <a href="#id69"><span class="problematic" id="id70">|lambda|</span></a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The spacing, <em>edge to edge</em> of two adjacent
+vertical rails</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If no clock tree is generated, then the clock rail is <em>not</em> created.
+So even if the requested number of rails <code class="docutils literal notranslate"><span class="pre">chip.block.rails.count</span></code> is, say 5,
+only four rails (2* <code class="docutils literal notranslate"><span class="pre">power</span></code>, 2* <code class="docutils literal notranslate"><span class="pre">ground</span></code>) will be generateds.</p>
+</div>
+</section>
+<section id="clock-tree">
+<h3>Clock Tree<a class="headerlink" href="#clock-tree" title="Permalink to this heading">¶</a></h3>
+<p>Inserts a clock tree into a block. The clock tree uses the H strategy.
+The clock net is splitted into sub-nets, one for each branch of the
+tree.</p>
+<ul>
+<li><p>On <strong>chip</strong> design, the sub-nets are created in the model of the
+core block (then trans-hierarchically flattened to be shown at
+chip level).</p></li>
+<li><p>On <strong>blocks</strong>, the sub nets are created directly in the top block.</p></li>
+<li><p>The sub-nets are named according to a simple geometrical scheme.
+A common prefix <code class="docutils literal notranslate"><span class="pre">ck_htree</span></code>, then one postfix by level telling
+on which quarter of plane the sub-clock is located:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_bl</span></code>: bottom left plane quarter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_br</span></code>: bottom right plane quarter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_tl</span></code>: top left plane quarter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_tr</span></code>: top right plane quarter.</p></li>
+</ol>
+<p>We can have <code class="docutils literal notranslate"><span class="pre">ck_htree_bl</span></code>, <code class="docutils literal notranslate"><span class="pre">ck_htree_bl_bl</span></code>, <code class="docutils literal notranslate"><span class="pre">ch_htree_bl_tl</span></code> and so on.</p>
+</li>
+</ul>
+<p>The clock tree plugin works in four steps:</p>
+<ol class="arabic simple">
+<li><p>Builds the clock tree: creates the top-block abutment box, compute the
+required levels of H tree and places the clock buffers.</p></li>
+<li><p>Once the clock buffers are placed, calls the placer (<a href="#id71"><span class="problematic" id="id72">|etesian|</span></a>) to place
+the ordinary standard cells, whithout disturbing clock H-tree buffers.</p></li>
+<li><p>At this point we know the exact positions of all the DFFs, so we can
+connect them to the nearest H-tree leaf clock signal.</p></li>
+<li><p>Leaf clock signals that are not connected to any DFFs are removed.</p></li>
+</ol>
+<p>Netlist reorganisation:</p>
+<ul class="simple">
+<li><p>Obviously the top block or chip core model netlist is modified to
+contain all the clock sub-nets. The interface is <em>not</em> changed.</p></li>
+<li><p>If the top block contains instances of other models <em>and</em> those models
+contain DFFs that get re-connected to the clock sub-nets (from the
+top level). Changes both the model netlist and interface to propagate
+the relevant clock sub-nets to the instanciated model. The new model
+with the added clock signal is renamed with a <code class="docutils literal notranslate"><span class="pre">_cts</span></code> suffix.
+For example, the sub-block model <code class="docutils literal notranslate"><span class="pre">ram.vst</span></code> will become <code class="docutils literal notranslate"><span class="pre">ram_cts.vst</span></code>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are to re-run the clock tree plugin on a netlist, be careful
+to erase any previously generated <code class="docutils literal notranslate"><span class="pre">_cts</span></code> file (both netlist and
+layout: <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">*_cts.{ap,vst}</span></code>). And restart <a href="#id73"><span class="problematic" id="id74">|cgt|</span></a> to clear its
+memory cache.</p>
+</div>
+<p>Configuration parameters, defaults are defined in <code class="docutils literal notranslate"><span class="pre">etc/coriolis2/&lt;STECHNO&gt;/plugins.conf</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter Identifier</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="3"><p><strong>ClockTree Plugin Parameters</strong></p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">clockTree.minimumSide</span></code></p></td>
+<td><p>TypeInt</p></td>
+<td><p><a href="#id17"><span class="problematic" id="id18">:cb:`300`</span></a> <a href="#id75"><span class="problematic" id="id76">|lambda|</span></a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The minimum size below which the clock tree
+will stop to perform quadri-partitions</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p><code class="docutils literal notranslate"><span class="pre">clockTree.buffer</span></code></p></td>
+<td><p>TypeString</p></td>
+<td><p><a href="#id19"><span class="problematic" id="id20">:cb:`buf_x2`</span></a></p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p>The buffer model to use to drive sub-nets</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="recursive-save-rsave">
+<h3>Recursive-Save (RSave)<a class="headerlink" href="#recursive-save-rsave" title="Permalink to this heading">¶</a></h3>
+<p>Performs a recursive top down save of all the models from the top cell
+loaded in <a href="#id77"><span class="problematic" id="id78">|cgt|</span></a>. Forces a write of any non-terminal model. This plugin is used
+by the clock tree plugin after the netlist clock sub-nets creation.</p>
+</section>
+</section>
+<section id="a-simple-example-am2901">
+<h2>A Simple Example: AM2901<a class="headerlink" href="#a-simple-example-am2901" title="Permalink to this heading">¶</a></h2>
+<p>To illustrate the capabilities of <a href="#id79"><span class="problematic" id="id80">|Coriolis|</span></a> tools and <a href="#id81"><span class="problematic" id="id82">|Python|</span></a> scripting, a small
+example, derived from the <a href="#id83"><span class="problematic" id="id84">|Alliance|</span></a> <a href="#id21"><span class="problematic" id="id22">:cb:`AM2901`</span></a> is supplied.</p>
+<p>This example contains only the synthetized netlists and the <a href="#id23"><span class="problematic" id="id24">:cb:`doChip.py`</span></a> script
+which perform the whole P&amp;R of the design.</p>
+<p>You can generate the chip using one of the following method:</p>
+<ol class="arabic">
+<li><p><strong>Command line mode:</strong> directly run the script:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:AM2901&gt;<span class="w"> </span>./doChip<span class="w"> </span>-V<span class="w"> </span>--cell<span class="o">=</span>amd2901
+</pre></div>
+</div>
+</li>
+<li><p><strong>Graphic mode:</strong> launch <a href="#id85"><span class="problematic" id="id86">|cgt|</span></a>, load chip netlist <code class="docutils literal notranslate"><span class="pre">amd2901</span></code> (the top cell)
+then run the <a href="#id87"><span class="problematic" id="id88">|Python|</span></a> script <a href="#id25"><span class="problematic" id="id26">:cb:`doChip.py`</span></a>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Between two consecutive run, be sure to erase the netlist/layout generateds:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>dummy@lepka:AM2901&gt;<span class="w"> </span>rm<span class="w"> </span>*_cts*.vst<span class="w"> </span>*.ap
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Coriolis-2.x</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, MazherLip6.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/ScriptsPlugins.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
